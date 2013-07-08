@@ -44,7 +44,6 @@ public class RelaySolverDg extends JFrame {
         JLabel freeLabel = new JLabel("Free Time");
         freeLabel.setLocation(460, 10);
         freeLabel.setSize(100, 30);
-        //this is a test
 
         JTextField swimmerOneName = new JTextField("");
         swimmerOneName.setLocation(20, 40);
@@ -62,38 +61,77 @@ public class RelaySolverDg extends JFrame {
         swimmerFourName.setLocation(20, 130);
         swimmerFourName.setSize(90, 20);
 
-        JTextField swimmerOneButter = new JTextField("");
-        swimmerOneButter.setLocation(110, 40);
 
-        JTextField swimmerTwoButter = new JTextField("");
-
-        JTextField swimmerThreeButter = new JTextField("");
-
-        JTextField swimmerFourButter = new JTextField("");
-
+        //Backstroke
         JTextField swimmerOneBack = new JTextField("");
+        swimmerOneBack.setLocation(130, 40);
+        swimmerOneBack.setSize(90, 20);
 
         JTextField swimmerTwoBack = new JTextField("");
+        swimmerTwoBack.setLocation(130, 70);
+        swimmerTwoBack.setSize(90, 20);
 
         JTextField swimmerThreeBack = new JTextField("");
+        swimmerThreeBack.setLocation(130, 100);
+        swimmerThreeBack.setSize(90, 20);
 
         JTextField swimmerFourBack = new JTextField("");
+        swimmerFourBack. setLocation(130, 130);
+        swimmerFourBack.setSize(90, 20);
 
+
+        //BreastStroke
         JTextField swimmerOneBreast = new JTextField("");
+        swimmerOneBreast.setLocation(240, 40);
+        swimmerOneBreast.setSize(90, 20);
 
         JTextField swimmerTwoBreast = new JTextField("");
+        swimmerTwoBreast.setLocation(240, 70);
+        swimmerTwoBreast.setSize(90, 20);
 
         JTextField swimmerThreeBreast = new JTextField("");
+        swimmerThreeBreast.setLocation(240, 100);
+        swimmerThreeBreast.setSize(90, 20);
 
         JTextField swimmerFourBreast = new JTextField("");
+        swimmerFourBreast. setLocation(240, 130);
+        swimmerFourBreast.setSize(90, 20);
 
+
+        //Butterfly
+        JTextField swimmerOneFly = new JTextField("");
+        swimmerOneFly.setLocation(350, 40);
+        swimmerOneFly.setSize(90, 20);
+
+        JTextField swimmerTwoFly = new JTextField("");
+        swimmerTwoFly.setLocation(350, 70);
+        swimmerTwoFly.setSize(90, 20);
+
+        JTextField swimmerThreeFly = new JTextField("");
+        swimmerThreeFly.setLocation(350, 100);
+        swimmerThreeFly.setSize(90, 20);
+
+        JTextField swimmerFourFly = new JTextField("");
+        swimmerFourFly.setLocation(350, 130);
+        swimmerFourFly.setSize(90, 20);
+
+
+        //FreeStyle
         JTextField swimmerOneFree = new JTextField("");
+        swimmerOneFree.setLocation(460, 40);
+        swimmerOneFree.setSize(90, 20);
 
         JTextField swimmerTwoFree = new JTextField("");
+        swimmerTwoFree.setLocation(460, 70);
+        swimmerTwoFree.setSize(90, 20);
 
         JTextField swimmerThreeFree = new JTextField("");
+        swimmerThreeFree.setLocation(460, 100);
+        swimmerThreeFree.setSize(90, 20);
 
         JTextField swimmerFourFree = new JTextField("");
+        swimmerFourFree. setLocation(460, 130);
+        swimmerFourFree.setSize(90, 20);
 
 
         panel.add(nameLabel);
@@ -101,22 +139,27 @@ public class RelaySolverDg extends JFrame {
         panel.add(breastLabel);
         panel.add(flyLabel);
         panel.add(freeLabel);
+
         panel.add(swimmerOneName);
         panel.add(swimmerTwoName);
         panel.add(swimmerThreeName);
         panel.add(swimmerFourName);
+
         panel.add(swimmerOneBack);
         panel.add(swimmerTwoBack);
         panel.add(swimmerThreeBack);
         panel.add(swimmerFourBack);
-        panel.add(swimmerOneButter);
-        panel.add(swimmerTwoButter);
-        panel.add(swimmerThreeButter);
-        panel.add(swimmerFourButter);
+
+        panel.add(swimmerOneFly);
+        panel.add(swimmerTwoFly);
+        panel.add(swimmerThreeFly);
+        panel.add(swimmerFourFly);
+
         panel.add(swimmerOneBreast);
         panel.add(swimmerTwoBreast);
         panel.add(swimmerThreeBreast);
         panel.add(swimmerFourBreast);
+
         panel.add(swimmerOneFree);
         panel.add(swimmerTwoFree);
         panel.add(swimmerThreeFree);
