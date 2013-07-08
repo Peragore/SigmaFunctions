@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_sigmafunctions" default="compile.module.sigmafunctions">
+    <dirname property="module.sigmafunctions.basedir" file="${ant.file.module_sigmafunctions}"/>
+
+    <property name="module.jdk.home.sigmafunctions" value="${project.jdk.home}"/>
+    <property name="module.jdk.bin.sigmafunctions" value="${project.jdk.bin}"/>
+    <property name="module.jdk.classpath.sigmafunctions" value="${project.jdk.classpath}"/>
+
+    <property name="compiler.args.sigmafunctions" value="${compiler.args}"/>
+
+    <property name="sigmafunctions.output.dir" value="${module.sigmafunctions.basedir}/out/production/SigmaFunctions"/>
+    <property name="sigmafunctions.testoutput.dir" value="${module.sigmafunctions.basedir}/out/test/SigmaFunctions"/>
+
+    <path id="sigmafunctions.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="sigmafunctions.module.production.classpath">
+        <path refid="${module.jdk.classpath.sigmafunctions}"/>
+    </path>
+
+    <path id="sigmafunctions.runtime.production.module.classpath">
+        <pathelement location="${sigmafunctions.output.dir}"/>
+    </path>
+
+    <path id="sigmafunctions.module.classpath">
+        <path refid="${module.jdk.classpath.sigmafunctions}"/>
+        <pathelement location="${sigmafunctions.output.dir}"/>
+    </path>
+
+    <path id="sigmafunctions.runtime.module.classpath">
+        <pathelement location="${sigmafunctions.testoutput.dir}"/>
+        <pathelement location="${sigmafunctions.output.dir}"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.sigmafunctions">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.sigmafunctions">
+        <patternset refid="excluded.from.module.sigmafunctions"/>
+    </patternset>
+
+    <path id="sigmafunctions.module.sourcepath">
+        <dirset dir="${module.sigmafunctions.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.sigmafunctions"
+            depends="compile.module.sigmafunctions.production,compile.module.sigmafunctions.tests"
+            description="Compile module SigmaFunctions"/>
+
+    <target name="compile.module.sigmafunctions.production" depends="register.custom.compilers"
+            description="Compile module SigmaFunctions; production classes">
+        <mkdir dir="${sigmafunctions.output.dir}"/>
+        <javac2 destdir="${sigmafunctions.output.dir}" debug="${compiler.debug}"
+                nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true"
+                executable="${module.jdk.bin.sigmafunctions}/javac">
+            <compilerarg line="${compiler.args.sigmafunctions}"/>
+            <bootclasspath refid="sigmafunctions.module.bootclasspath"/>
+            <classpath refid="sigmafunctions.module.production.classpath"/>
+            <src refid="sigmafunctions.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.sigmafunctions"/>
+        </javac2>
+
+        <copy todir="${sigmafunctions.output.dir}">
+            <fileset dir="${module.sigmafunctions.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.sigmafunctions.tests"
+            depends="register.custom.compilers,compile.module.sigmafunctions.production"
+            description="compile module SigmaFunctions; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.sigmafunctions" description="cleanup module">
+        <delete dir="${sigmafunctions.output.dir}"/>
+        <delete dir="${sigmafunctions.testoutput.dir}"/>
+    </target>
+</project>
