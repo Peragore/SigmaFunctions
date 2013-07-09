@@ -87,7 +87,7 @@ public class Main extends JFrame {
 
         JButton relaySolver = new JButton("Relay Solver");
         relaySolver.setBounds(80, 180, 150, 30);
-        relaySolver.setMnemonic(KeyEvent.VK_D);
+        relaySolver.setMnemonic(KeyEvent.VK_R);
         relaySolver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

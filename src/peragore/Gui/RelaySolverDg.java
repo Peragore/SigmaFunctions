@@ -1,6 +1,9 @@
 package peragore.Gui;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,6 +13,11 @@ import javax.swing.*;
  * To change this template use File | Settings | File Templates.
  */
 public class RelaySolverDg extends JFrame {
+    String name1 = null;
+    String name2 = null;
+    String name3 = null;
+    String name4 = null;
+    
     public RelaySolverDg() {
         initUI();
     }
@@ -45,100 +53,146 @@ public class RelaySolverDg extends JFrame {
         freeLabel.setLocation(460, 10);
         freeLabel.setSize(100, 30);
 
-        JTextField swimmerOneName = new JTextField("");
+        JLabel answerLabel = new JLabel("Swim Order");
+        answerLabel.setLocation(20, 200);
+        answerLabel.setSize(100, 30);
+
+        final JTextField answerArea = new JTextField();
+        answerArea.setLocation(110, 200);
+        answerArea.setSize(150, 30);
+        answerArea.setEditable(false);
+
+        //Names
+        final JTextField swimmerOneName = new JTextField("");
         swimmerOneName.setLocation(20, 40);
         swimmerOneName.setSize(90, 20);
 
-        JTextField swimmerTwoName = new JTextField("");
+        final JTextField swimmerTwoName = new JTextField("");
         swimmerTwoName.setLocation(20, 70);
         swimmerTwoName.setSize(90, 20);
 
-        JTextField swimmerThreeName = new JTextField("");
+        final JTextField swimmerThreeName = new JTextField("");
         swimmerThreeName.setLocation(20, 100);
         swimmerThreeName.setSize(90, 20);
 
-        JTextField swimmerFourName = new JTextField("");
+        final JTextField swimmerFourName = new JTextField("");
         swimmerFourName.setLocation(20, 130);
         swimmerFourName.setSize(90, 20);
 
 
         //Backstroke
-        JTextField swimmerOneBack = new JTextField("");
+        final JTextField swimmerOneBack = new JTextField("");
         swimmerOneBack.setLocation(130, 40);
         swimmerOneBack.setSize(90, 20);
 
-        JTextField swimmerTwoBack = new JTextField("");
+        final JTextField swimmerTwoBack = new JTextField("");
         swimmerTwoBack.setLocation(130, 70);
         swimmerTwoBack.setSize(90, 20);
 
-        JTextField swimmerThreeBack = new JTextField("");
+        final JTextField swimmerThreeBack = new JTextField("");
         swimmerThreeBack.setLocation(130, 100);
         swimmerThreeBack.setSize(90, 20);
 
-        JTextField swimmerFourBack = new JTextField("");
+        final JTextField swimmerFourBack = new JTextField("");
         swimmerFourBack. setLocation(130, 130);
         swimmerFourBack.setSize(90, 20);
 
 
         //BreastStroke
-        JTextField swimmerOneBreast = new JTextField("");
+        final JTextField swimmerOneBreast = new JTextField("");
         swimmerOneBreast.setLocation(240, 40);
         swimmerOneBreast.setSize(90, 20);
 
-        JTextField swimmerTwoBreast = new JTextField("");
+        final JTextField swimmerTwoBreast = new JTextField("");
         swimmerTwoBreast.setLocation(240, 70);
         swimmerTwoBreast.setSize(90, 20);
 
-        JTextField swimmerThreeBreast = new JTextField("");
+        final JTextField swimmerThreeBreast = new JTextField("");
         swimmerThreeBreast.setLocation(240, 100);
         swimmerThreeBreast.setSize(90, 20);
 
-        JTextField swimmerFourBreast = new JTextField("");
+        final JTextField swimmerFourBreast = new JTextField("");
         swimmerFourBreast. setLocation(240, 130);
         swimmerFourBreast.setSize(90, 20);
 
 
         //Butterfly
-        JTextField swimmerOneFly = new JTextField("");
+        final JTextField swimmerOneFly = new JTextField("");
         swimmerOneFly.setLocation(350, 40);
         swimmerOneFly.setSize(90, 20);
 
-        JTextField swimmerTwoFly = new JTextField("");
+        final JTextField swimmerTwoFly = new JTextField("");
         swimmerTwoFly.setLocation(350, 70);
         swimmerTwoFly.setSize(90, 20);
 
-        JTextField swimmerThreeFly = new JTextField("");
+        final JTextField swimmerThreeFly = new JTextField("");
         swimmerThreeFly.setLocation(350, 100);
         swimmerThreeFly.setSize(90, 20);
 
-        JTextField swimmerFourFly = new JTextField("");
+        final JTextField swimmerFourFly = new JTextField("");
         swimmerFourFly.setLocation(350, 130);
         swimmerFourFly.setSize(90, 20);
 
 
         //FreeStyle
-        JTextField swimmerOneFree = new JTextField("");
+        final JTextField swimmerOneFree = new JTextField("");
         swimmerOneFree.setLocation(460, 40);
         swimmerOneFree.setSize(90, 20);
 
-        JTextField swimmerTwoFree = new JTextField("");
+        final JTextField swimmerTwoFree = new JTextField("");
         swimmerTwoFree.setLocation(460, 70);
         swimmerTwoFree.setSize(90, 20);
 
-        JTextField swimmerThreeFree = new JTextField("");
+        final JTextField swimmerThreeFree = new JTextField("");
         swimmerThreeFree.setLocation(460, 100);
         swimmerThreeFree.setSize(90, 20);
 
-        JTextField swimmerFourFree = new JTextField("");
+        final JTextField swimmerFourFree = new JTextField("");
         swimmerFourFree. setLocation(460, 130);
         swimmerFourFree.setSize(90, 20);
 
+        JButton returnButton = new JButton("Return");
+        returnButton.setLocation(475, 250);
+        returnButton.setSize(90, 30);
+        returnButton.setMnemonic(KeyEvent.VK_R);
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main main = new Main();
+                main.setVisible(true);
+                dispose();
+            }
+        });
 
+        JButton solveButton = new JButton("Solve");
+        solveButton.setLocation(350, 250);
+        solveButton.setSize(90, 30);
+        solveButton.setMnemonic(KeyEvent.VK_S);
+        solveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] finalOrder = new String[4];
+                name1 = swimmerOneName.getText();
+                name2 = swimmerTwoName.getText();
+                name3 = swimmerThreeName.getText();
+                name4 = swimmerFourName.getText();
+                /**************************
+                 * finalOrder[0] = name1;
+                 * finalOrder[1] = name2;
+                 * finalOrder[2] = name3;
+                 * finalOrder[3] = name4;
+                 **************************/
+
+                answerArea.setText(finalOrder[0] + ", " + finalOrder[1] + ", " + finalOrder[2] + ", " + finalOrder[3]);
+            }
+        });
+        
         panel.add(nameLabel);
         panel.add(backLabel);
         panel.add(breastLabel);
         panel.add(flyLabel);
         panel.add(freeLabel);
+        panel.add(answerLabel);
 
         panel.add(swimmerOneName);
         panel.add(swimmerTwoName);
@@ -164,6 +218,12 @@ public class RelaySolverDg extends JFrame {
         panel.add(swimmerTwoFree);
         panel.add(swimmerThreeFree);
         panel.add(swimmerFourFree);
+
+        panel.add(answerArea);
+
+        //buttons
+        panel.add(returnButton);
+        panel.add(solveButton);
 
     }
 }
