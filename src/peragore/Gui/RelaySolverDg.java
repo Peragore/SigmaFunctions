@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.TreeSet;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,7 +18,32 @@ public class RelaySolverDg extends JFrame {
     String name2 = null;
     String name3 = null;
     String name4 = null;
-    
+
+    String back1 = null;
+    String back2 = null;
+    String back3 = null;
+    String back4 = null;
+
+    String fly1 = null;
+    String fly2 = null;
+    String fly3 = null;
+    String fly4 = null;
+
+    String breast1 = null;
+    String breast2 = null;
+    String breast3 = null;
+    String breast4 = null;
+
+    String free1 = null;
+    String free2 = null;
+    String free3 = null;
+    String free4 = null;
+
+    int parsedBack1;
+    int parsedBack2;
+    int parsedBack3;
+    int parsedBack4;
+
     public RelaySolverDg() {
         initUI();
     }
@@ -94,7 +120,7 @@ public class RelaySolverDg extends JFrame {
         swimmerThreeBack.setSize(90, 20);
 
         final JTextField swimmerFourBack = new JTextField("");
-        swimmerFourBack. setLocation(130, 130);
+        swimmerFourBack.setLocation(130, 130);
         swimmerFourBack.setSize(90, 20);
 
 
@@ -112,7 +138,7 @@ public class RelaySolverDg extends JFrame {
         swimmerThreeBreast.setSize(90, 20);
 
         final JTextField swimmerFourBreast = new JTextField("");
-        swimmerFourBreast. setLocation(240, 130);
+        swimmerFourBreast.setLocation(240, 130);
         swimmerFourBreast.setSize(90, 20);
 
 
@@ -148,7 +174,7 @@ public class RelaySolverDg extends JFrame {
         swimmerThreeFree.setSize(90, 20);
 
         final JTextField swimmerFourFree = new JTextField("");
-        swimmerFourFree. setLocation(460, 130);
+        swimmerFourFree.setLocation(460, 130);
         swimmerFourFree.setSize(90, 20);
 
         JButton returnButton = new JButton("Return");
@@ -172,21 +198,56 @@ public class RelaySolverDg extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String[] finalOrder = new String[4];
+                String[] back1Array;
+                String[] back2Array;
+                String[] back3Array;
+                String[] back4Array;
+                TreeSet backTS = new TreeSet();
+                TreeSet flyTS = new TreeSet();
+                TreeSet breastTS = new TreeSet();
+                TreeSet freeTS = new TreeSet();
+
                 name1 = swimmerOneName.getText();
                 name2 = swimmerTwoName.getText();
                 name3 = swimmerThreeName.getText();
                 name4 = swimmerFourName.getText();
+
+                back1 = swimmerOneBack.getText();
+                back2 = swimmerTwoBack.getText();
+                back3 = swimmerThreeBack.getText();
+                back4 = swimmerFourBack.getText();
+
+                back1Array = back1.split(":");
+                back2Array = back2.split(":");
+                back3Array = back3.split(":");
+                back4Array = back4.split(":");
+                parsedBack1 = (Integer.parseInt(back1Array[0]) * 100) + (Integer.parseInt(back1Array[1]) * 10) + Integer.parseInt(back1Array[2]);
+                parsedBack2 = (Integer.parseInt(back2Array[0]) * 100) + (Integer.parseInt(back2Array[1]) * 10) + Integer.parseInt(back2Array[2]);
+                parsedBack3 = (Integer.parseInt(back3Array[0]) * 100) + (Integer.parseInt(back3Array[1]) * 10) + Integer.parseInt(back3Array[2]);
+                parsedBack4 = (Integer.parseInt(back4Array[0]) * 100) + (Integer.parseInt(back4Array[1]) * 10) + Integer.parseInt(back4Array[2]);
+
+                backTS.add(parsedBack1);
+                backTS.add(parsedBack2);
+                backTS.add(parsedBack3);
+                backTS.add(parsedBack4);
+
+                fly1 = swimmerOneFly.getText();
+                fly2 = swimmerTwoFly.getText();
+                fly3 = swimmerThreeFly.getText();
+                fly4 = swimmerFourFly.getText();
+
+
                 /**************************
                  * finalOrder[0] = name1;
                  * finalOrder[1] = name2;
                  * finalOrder[2] = name3;
                  * finalOrder[3] = name4;
                  **************************/
-
+                System.out.println(backTS.first());
                 answerArea.setText(finalOrder[0] + ", " + finalOrder[1] + ", " + finalOrder[2] + ", " + finalOrder[3]);
             }
         });
-        
+
         panel.add(nameLabel);
         panel.add(backLabel);
         panel.add(breastLabel);
