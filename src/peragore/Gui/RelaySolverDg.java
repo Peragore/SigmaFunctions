@@ -1,9 +1,20 @@
 package peragore.Gui;
 
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
 import java.util.TreeSet;
 
 /**
@@ -39,6 +50,12 @@ public class RelaySolverDg extends JFrame {
     String free3 = null;
     String free4 = null;
 
+    String[] xmlNameArray = new String[4];
+    String[] xmlBackArray = new String[4];
+    String[] xmlBreastArray = new String[4];
+    String[] xmlFlyArray = new String[4];
+    String[] xmlFreeArray = new String[4];
+
     int parsedBack1;
     int parsedBack2;
     int parsedBack3;
@@ -55,7 +72,7 @@ public class RelaySolverDg extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        JPanel panel = new JPanel();
+        final JPanel panel = new JPanel();
         getContentPane().add(panel);
         panel.setLayout(null);
 
@@ -89,21 +106,21 @@ public class RelaySolverDg extends JFrame {
         answerArea.setEditable(false);
 
         //Names
-        final JTextField swimmerOneName = new JTextField("");
-        swimmerOneName.setLocation(20, 40);
-        swimmerOneName.setSize(90, 20);
+        final JTextField swimmer1Name = new JTextField("");
+        swimmer1Name.setLocation(20, 40);
+        swimmer1Name.setSize(90, 20);
 
-        final JTextField swimmerTwoName = new JTextField("");
-        swimmerTwoName.setLocation(20, 70);
-        swimmerTwoName.setSize(90, 20);
+        final JTextField swimmer2Name = new JTextField("");
+        swimmer2Name.setLocation(20, 70);
+        swimmer2Name.setSize(90, 20);
 
-        final JTextField swimmerThreeName = new JTextField("");
-        swimmerThreeName.setLocation(20, 100);
-        swimmerThreeName.setSize(90, 20);
+        final JTextField swimmer3Name = new JTextField("");
+        swimmer3Name.setLocation(20, 100);
+        swimmer3Name.setSize(90, 20);
 
-        final JTextField swimmerFourName = new JTextField("");
-        swimmerFourName.setLocation(20, 130);
-        swimmerFourName.setSize(90, 20);
+        final JTextField swimmer4Name = new JTextField("");
+        swimmer4Name.setLocation(20, 130);
+        swimmer4Name.setSize(90, 20);
 
 
         //Backstroke
@@ -190,6 +207,85 @@ public class RelaySolverDg extends JFrame {
             }
         });
 
+        JButton xmlWriterButton = new JButton("Save");
+        xmlWriterButton.setLocation(240, 250);
+        xmlWriterButton.setSize(90, 30);
+        xmlWriterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RelaySolverXMLEngine xmlWriter = new RelaySolverXMLEngine();
+                xmlWriter.writeXML(swimmer1Name.getText(), swimmerOneBack.getText(), swimmerOneBreast.getText(), swimmerOneFly.getText(), swimmerOneFree.getText(),
+                        swimmer2Name.getText(), swimmerTwoBack.getText(), swimmerTwoBreast.getText(), swimmerTwoFly.getText(), swimmerTwoFree.getText(),
+                        swimmer3Name.getText(), swimmerThreeBack.getText(), swimmerThreeBreast.getText(), swimmerThreeFly.getText(), swimmerThreeFree.getText(),
+                        swimmer4Name.getText(), swimmerFourBack.getText(), swimmerFourBreast.getText(), swimmerFourFly.getText(), swimmerFourFree.getText());
+            }
+        });
+
+        JButton openButton = new JButton("Open");
+        openButton.setLocation(140, 250);
+        openButton.setSize(90, 30);
+        openButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileOpen = new JFileChooser(new File("."));
+                FileFilter filter = new FileNameExtensionFilter("xml files", "xml");
+                fileOpen.addChoosableFileFilter(filter);
+                int ret = fileOpen.showDialog(panel, "Open file");
+
+                if (ret == JFileChooser.APPROVE_OPTION) {
+                    File file = fileOpen.getSelectedFile();
+                    String text = readFile(file);
+                    RelaySolverXMLEngine xmlEngine = new RelaySolverXMLEngine();
+                    System.out.println(file.getPath());
+
+                    SAXBuilder builder = new SAXBuilder();
+                    File xmlFile = new File(file.getPath());
+
+                    try {
+                        Document doc = (Document) builder.build(xmlFile);
+                        Element rootNode = doc.getRootElement();
+                        List list = rootNode.getChildren("Swimmer");
+                        for (int i = 0; i < list.size(); i++) {
+                            Element node = (Element) list.get(i);
+                            xmlNameArray[i] = node.getChildText("Name");
+                            xmlBackArray[i] = node.getChildText("Backstroke");
+                            xmlBreastArray[i] = node.getChildText("Breast_Stroke");
+                            xmlFlyArray[i] = node.getChildText("Butterfly");
+                            xmlFreeArray[i] = node.getChildText("Freestyle");
+                        }
+
+                        swimmer1Name.setText(xmlNameArray[0]);
+                        swimmer2Name.setText(xmlNameArray[1]);
+                        swimmer3Name.setText(xmlNameArray[2]);
+                        swimmer4Name.setText(xmlNameArray[3]);
+
+                        swimmerOneBack.setText(xmlBackArray[0]);
+                        swimmerTwoBack.setText(xmlBackArray[1]);
+                        swimmerThreeBack.setText(xmlBackArray[2]);
+                        swimmerFourBack.setText(xmlBackArray[3]);
+
+                        swimmerOneBreast.setText(xmlBreastArray[0]);
+                        swimmerTwoBreast.setText(xmlBreastArray[1]);
+                        swimmerThreeBreast.setText(xmlBreastArray[2]);
+                        swimmerFourBreast.setText(xmlBreastArray[3]);
+
+                        swimmerOneFly.setText(xmlFlyArray[0]);
+                        swimmerTwoFly.setText(xmlFlyArray[1]);
+                        swimmerThreeFly.setText(xmlFlyArray[2]);
+                        swimmerFourFly.setText(xmlFlyArray[3]);
+
+                        swimmerOneFree.setText(xmlFreeArray[0]);
+                        swimmerTwoFree.setText(xmlFreeArray[1]);
+                        swimmerThreeFree.setText(xmlFreeArray[2]);
+                        swimmerFourFree.setText(xmlFreeArray[3]);
+
+                    } catch (Exception ex) {
+                        System.out.println(ex);
+                    }
+                }
+            }
+        });
+
         JButton solveButton = new JButton("Solve");
         solveButton.setLocation(350, 250);
         solveButton.setSize(90, 30);
@@ -207,10 +303,10 @@ public class RelaySolverDg extends JFrame {
                 TreeSet breastTS = new TreeSet();
                 TreeSet freeTS = new TreeSet();
 
-                name1 = swimmerOneName.getText();
-                name2 = swimmerTwoName.getText();
-                name3 = swimmerThreeName.getText();
-                name4 = swimmerFourName.getText();
+                name1 = swimmer1Name.getText();
+                name2 = swimmer2Name.getText();
+                name3 = swimmer3Name.getText();
+                name4 = swimmer4Name.getText();
 
                 back1 = swimmerOneBack.getText();
                 back2 = swimmerTwoBack.getText();
@@ -248,6 +344,7 @@ public class RelaySolverDg extends JFrame {
             }
         });
 
+
         panel.add(nameLabel);
         panel.add(backLabel);
         panel.add(breastLabel);
@@ -255,10 +352,10 @@ public class RelaySolverDg extends JFrame {
         panel.add(freeLabel);
         panel.add(answerLabel);
 
-        panel.add(swimmerOneName);
-        panel.add(swimmerTwoName);
-        panel.add(swimmerThreeName);
-        panel.add(swimmerFourName);
+        panel.add(swimmer1Name);
+        panel.add(swimmer2Name);
+        panel.add(swimmer3Name);
+        panel.add(swimmer4Name);
 
         panel.add(swimmerOneBack);
         panel.add(swimmerTwoBack);
@@ -285,6 +382,33 @@ public class RelaySolverDg extends JFrame {
         //buttons
         panel.add(returnButton);
         panel.add(solveButton);
+        panel.add(xmlWriterButton);
+        panel.add(openButton);
 
     }
+
+    public String readFile(File file) {
+        StringBuffer fileBuffer = null;
+        String fileString = null;
+        String line = null;
+
+        try {
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            fileBuffer = new StringBuffer();
+
+            while ((line = bufferedReader.readLine()) != null) {
+                fileBuffer.append(line).append(System.getProperty("line.separator"));
+            }
+
+            fileReader.close();
+            fileString = fileBuffer.toString();
+        } catch (IOException ex) {
+            return null;
+        }
+
+        return fileString;
+    }
+
+
 }
