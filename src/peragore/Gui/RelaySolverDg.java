@@ -322,10 +322,6 @@ public class RelaySolverDg extends JFrame {
                 parsedBack3 = (Integer.parseInt(back3Array[0]) * 100) + (Integer.parseInt(back3Array[1]) * 10) + Integer.parseInt(back3Array[2]);
                 parsedBack4 = (Integer.parseInt(back4Array[0]) * 100) + (Integer.parseInt(back4Array[1]) * 10) + Integer.parseInt(back4Array[2]);
 
-                backTS.add(parsedBack1);
-                backTS.add(parsedBack2);
-                backTS.add(parsedBack3);
-                backTS.add(parsedBack4);
 
                 fly1 = swimmerOneFly.getText();
                 fly2 = swimmerTwoFly.getText();
