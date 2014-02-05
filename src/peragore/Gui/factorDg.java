@@ -62,6 +62,7 @@ public class factorDg extends JFrame{
         areaAnswer.setLocation(120, 50);
         areaAnswer.setSize(100, 30);
 
+
         final JTextField areaPoly = new JTextField("Polynomial Here");
         areaPoly.setLocation(120, 10);
         areaPoly.setSize(100, 30);

@@ -1,13 +1,9 @@
 package peragore.Gui;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 /**
  * Created with IntelliJ IDEA.
@@ -96,11 +92,22 @@ public class Main extends JFrame {
                 relaySolverDg.setVisible(true);
             }
         });
+        JButton server = new JButton("Open Server");
+        server.setBounds(80, 220, 150, 30);
+        server.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ServerDG serverDG = new ServerDG();
+                dispose();
+                serverDG.setVisible(true);
+            }
+        });
 
         panel.add(sigmaFunctions);
         panel.add(factorer);
         panel.add(diceRoller);
         panel.add(relaySolver);
+        panel.add(server);
 
     }
 
