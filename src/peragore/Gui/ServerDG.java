@@ -209,14 +209,11 @@ public class ServerDG extends JFrame {
                     e.printStackTrace();
                 }
                 System.out.println(character);
-                //if (character != null){
-                character = String.valueOf(character);
-                character = character.replace("\0", "");
-                character = character.replace("@", "");
-                //}
-                System.out.println(character);
-                double characterDouble = Double.parseDouble(character);
-                System.out.println(characterDouble + 5);
+                System.out.println(character.matches("[0-9]+"));
+                if (character.matches("[0-9]+")) {
+                    double characterDouble = Double.parseDouble(character);
+                    System.out.println(characterDouble + 5);
+                }
 
 
                 //disconnect();
